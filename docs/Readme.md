@@ -55,3 +55,193 @@ To keep the lifecycle practical in real projects, use this short checklist:
 
 When these four points are documented, your analysis is easier to review, explain, and improve.
 
+# Data Science Project Repository Guide
+
+## Overview
+
+This repository is designed to help readers understand how to effectively navigate and interpret a data science project. Rather than focusing only on code and outputs, this project emphasizes understanding the intent, structure, and decision-making behind the work.
+
+The goal is to build the ability to read a repository as a cohesive story—connecting problem definition, data, analysis, and results.
+
+---
+
+## Objectives
+
+By exploring this repository, you will learn how to:
+
+* Understand the problem a data science project is solving
+* Navigate a repository using its structure and documentation
+* Identify different stages of the data science lifecycle
+* Interpret notebooks and scripts with purpose
+* Recognize assumptions, limitations, and gaps in analysis
+
+---
+
+## Project Structure
+
+```
+├── data/
+│   ├── raw/              # Original datasets (unaltered)
+│   └── processed/        # Cleaned and transformed data
+│
+├── notebooks/            # Jupyter notebooks for exploration & analysis
+│
+├── src/                  # Reusable scripts and core logic
+│
+├── models/               # Saved models or training outputs
+│
+├── reports/
+│   ├── figures/          # Visualizations and plots
+│   └── summaries/        # Key findings and insights
+│
+├── README.md             # Project overview and guide
+└── requirements.txt      # Dependencies
+```
+
+---
+
+## How to Approach This Repository
+
+### 1. Start with the README
+
+This file provides:
+
+* Problem statement
+* Dataset overview
+* Approach and workflow
+* Key insights
+
+Ask yourself:
+
+* Is anything missing?
+* Does it clearly explain the project’s purpose?
+
+---
+
+### 2. Understand the Workflow
+
+Follow the typical data science lifecycle:
+
+1. Data Collection
+2. Data Cleaning & Preprocessing
+3. Exploratory Data Analysis (EDA)
+4. Modeling / Analysis
+5. Evaluation
+6. Reporting Insights
+
+Try to map each folder or file to one of these stages.
+
+---
+
+### 3. Explore the Data
+
+* Check the `data/` folder
+* Identify raw vs processed data
+* Look for assumptions (missing values, filtering, etc.)
+
+---
+
+### 4. Read Notebooks Strategically
+
+When opening notebooks:
+
+* Don’t focus on every line of code
+* Look for:
+
+  * Where data is loaded
+  * How it is cleaned
+  * Key transformations
+  * Visualizations and conclusions
+
+Focus on why steps were taken, not just how.
+
+---
+
+### 5. Review Code in `src/`
+
+* Contains reusable logic
+* Typically more structured than notebooks
+* Helps separate experimentation from production-ready code
+
+---
+
+### 6. Analyze Outputs
+
+Check:
+
+* `models/` → trained models
+* `reports/figures/` → visualizations
+* `reports/summaries/` → conclusions
+
+Ask:
+
+* What insights were discovered?
+* Are they clearly supported by the analysis?
+
+---
+
+## Key Things to Look For
+
+### Assumptions
+
+* Are there implicit assumptions about the data?
+* Any preprocessing choices that could affect results?
+
+### Limitations
+
+* Missing data?
+* Small dataset?
+* Potential bias?
+
+### Gaps
+
+* What is not answered?
+* What could be improved or extended?
+
+---
+
+## How to Contribute
+
+When contributing:
+
+* Do not modify raw data
+* Add new analysis in separate notebooks
+* Keep code modular inside `src/`
+* Update documentation when adding features
+
+Suggested contributions:
+
+* Improve README clarity
+* Add visualizations
+* Extend analysis
+* Refactor code
+
+---
+
+## Key Takeaways
+
+After exploring this repository, you should be able to:
+
+* Understand the goal of a data science project
+* Navigate project structure with confidence
+* Interpret analysis without getting lost in code
+* Identify assumptions and missing pieces
+* Contribute thoughtfully and responsibly
+
+---
+
+## Requirements
+
+Install dependencies using:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Final Note
+
+A data science repository is more than code—it is a record of decisions, experiments, and insights. Learning to read it effectively is a critical skill for real-world collaboration.
+
+Focus on understanding the story behind the work, not just the files.
