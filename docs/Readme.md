@@ -45,3 +45,13 @@ Useful insights have three properties:
 
 So the lifecycle is connected: question focuses the evidence, evidence supports exploration, and exploration produces actionable insight.
 
+## Quick project checklist
+To keep the lifecycle practical in real projects, use this short checklist:
+
+- Write one decision-focused question before analysis begins.
+- List the exact data sources and what each source proves.
+- Record at least one data quality issue and how it was handled.
+- Summarize the final insight in one sentence with a recommended action.
+
+When these four points are documented, your analysis is easier to review, explain, and improve.
+
