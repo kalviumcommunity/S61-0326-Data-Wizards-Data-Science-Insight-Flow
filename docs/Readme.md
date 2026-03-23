@@ -55,6 +55,53 @@ To keep the lifecycle practical in real projects, use this short checklist:
 
 When these four points are documented, your analysis is easier to review, explain, and improve.
 
+
+# Local Development Environment Setup
+
+## Operating System
+- Windows
+
+## Python Installation
+- **Version:** 3.12.5
+- **Verification Command:**
+  ```
+  python --version
+  ```
+- **Output:**
+  ```
+  Python 3.12.5
+  ```
+
+## Anaconda Installation
+- **Version:** _Not yet installed_
+- **Verification Command:**
+  ```
+  conda --version
+  ```
+- **Output:**
+  ```
+  'conda' is not recognized as an internal or external command,
+  operable program or batch file.
+  ```
+
+## Setup Steps
+1. Verified Python was installed and accessible from the terminal.
+2. Attempted to verify Anaconda (conda) installation; not yet installed.
+3. Will install Anaconda from the official website by double-clicking the downloaded installer file (do not run from terminal). Add it to PATH if prompted, or use Anaconda Prompt.
+4. Will re-verify conda installation after setup.
+
+## Environment Validation
+- Launched Python REPL:
+  ```
+  python
+  >>> print("Hello, Data Science!")
+  Hello, Data Science!
+  ```
+- (Optional) Will launch Anaconda Navigator after installation.
+
+## Screenshots or Command Outputs
+- (Paste screenshots or terminal outputs here as proof.)
+
 # Data Science Project Repository Guide
 
 ## Overview
