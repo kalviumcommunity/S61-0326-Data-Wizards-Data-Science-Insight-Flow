@@ -56,52 +56,6 @@ To keep the lifecycle practical in real projects, use this short checklist:
 When these four points are documented, your analysis is easier to review, explain, and improve.
 
 
-# Local Development Environment Setup
-
-## Operating System
-- Windows
-
-## Python Installation
-- **Version:** 3.12.5
-- **Verification Command:**
-  ```
-  python --version
-  ```
-- **Output:**
-  ```
-  Python 3.12.5
-  ```
-
-## Anaconda Installation
-- **Version:** _Not yet installed_
-- **Verification Command:**
-  ```
-  conda --version
-  ```
-- **Output:**
-  ```
-  'conda' is not recognized as an internal or external command,
-  operable program or batch file.
-  ```
-
-## Setup Steps
-1. Verified Python was installed and accessible from the terminal.
-2. Attempted to verify Anaconda (conda) installation; not yet installed.
-3. Will install Anaconda from the official website by double-clicking the downloaded installer file (do not run from terminal). Add it to PATH if prompted, or use Anaconda Prompt.
-4. Will re-verify conda installation after setup.
-
-## Environment Validation
-- Launched Python REPL:
-  ```
-  python
-  >>> print("Hello, Data Science!")
-  Hello, Data Science!
-  ```
-- (Optional) Will launch Anaconda Navigator after installation.
-
-## Screenshots or Command Outputs
-- (Paste screenshots or terminal outputs here as proof.)
-
 # Data Science Project Repository Guide
 
 ## Overview
@@ -292,3 +246,105 @@ pip install -r requirements.txt
 A data science repository is more than code—it is a record of decisions, experiments, and insights. Learning to read it effectively is a critical skill for real-world collaboration.
 
 Focus on understanding the story behind the work, not just the files.
+
+---
+
+# Environment Verification Milestone (Python + Conda + Jupyter)
+
+This section documents verification of the local Data Science setup.
+
+## Verification Date
+- 2026-03-24
+
+## Operating System
+- Windows 10
+
+## 1. Python Verification
+- Status: PASS
+- Command:
+  ```powershell
+  python --version
+  ```
+- Output:
+  ```text
+  Python 3.11.9
+  ```
+- Command:
+  ```powershell
+  python -c "import sys,platform; print('executable:', sys.executable); print('platform:', platform.platform())"
+  ```
+- Output:
+  ```text
+  executable: C:\Users\Hi\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
+  platform: Windows-10-10.0.19045-SP0
+  ```
+
+## 2. Conda Verification
+- Status: PASS
+- Environment used: base
+- Command:
+  ```powershell
+  C:\Users\Hi\miniconda3\Scripts\conda.exe --version
+  C:\Users\Hi\miniconda3\Scripts\conda.exe env list
+  ```
+- Output:
+  ```text
+  conda 26.1.1
+
+  # conda environments:
+  #
+  # * -> active
+  # + -> frozen
+  base                     C:\Users\Hi\miniconda3
+  ```
+
+## 3. Jupyter Verification
+- Status: PASS
+- Command:
+  ```powershell
+  C:\Users\Hi\miniconda3\python.exe -m jupyter --version
+  ```
+- Output:
+  ```text
+  Selected Jupyter core packages...
+  IPython          : 9.11.0
+  ipykernel        : 7.2.0
+  jupyter_client   : 8.8.0
+  jupyter_core     : 5.9.1
+  jupyter_server   : 2.17.0
+  jupyterlab       : 4.5.3
+  nbconvert        : 7.17.0
+  nbformat         : 5.10.4
+  notebook         : 7.5.3
+  ```
+
+- Launch proof command:
+  ```powershell
+  C:\Users\Hi\miniconda3\python.exe -m jupyter notebook --no-browser --port 8899
+  ```
+- Launch output excerpt:
+  ```text
+  Jupyter Server 2.17.0 is running at:
+  http://localhost:8899/tree?token=...
+  http://127.0.0.1:8899/tree?token=...
+  ```
+
+- Notebook execution proof command:
+  ```powershell
+  C:\Users\Hi\miniconda3\Scripts\jupyter-execute.exe --inplace docs\jupyter_verification.ipynb
+  ```
+- Executed cell output (from notebook):
+  ```text
+  Jupyter verification successful
+  ```
+
+## Overall Verification Result
+- Current state: FULLY VERIFIED
+- Ready for sprint baseline: YES
+
+## Milestone Completion Checklist
+1. Python callable and stable: PASS
+2. Conda environment available and listable: PASS
+3. Jupyter installed and executable in Conda environment: PASS
+4. Notebook cell executed successfully: PASS
+
