@@ -348,3 +348,40 @@ This section documents verification of the local Data Science setup.
 3. Jupyter installed and executable in Conda environment: PASS
 4. Notebook cell executed successfully: PASS
 
+---
+
+# Jupyter Notebook Navigation & Management Milestone
+
+This milestone ensures you can confidently launch, navigate, and manage Jupyter Notebooks in your project. Mastering these basics prevents common workflow mistakes and keeps your work organized.
+
+## Why This Matters
+- Prevents creating notebooks in the wrong folder
+- Ensures your data, notebooks, and scripts stay organized
+- Avoids confusion about environments and kernels
+
+## What You Should Be Able to Do
+1. **Launch Jupyter Notebook from the terminal**
+   - Activate the correct Conda environment
+   - Navigate to your project root
+   - Run `jupyter notebook` and confirm it opens in your browser
+2. **Understand the Jupyter Home interface**
+   - Identify file/folder listing, navigation breadcrumbs, new file buttons, and file type indicators
+3. **Navigate project folders**
+   - Move into/out of directories
+   - Locate your project folder and understand how navigation maps to your local file system
+4. **Create and open a notebook**
+   - Create a notebook in the correct folder
+   - Confirm the correct Python kernel is active
+   - Run a simple cell to verify execution
+5. **Notebook file management basics**
+   - Rename, save, close, and reopen notebooks safely
+
+## Best Practices
+- Always launch Jupyter from your project root to avoid misplaced files
+- Double-check the folder before creating new notebooks
+- Use meaningful names for notebooks
+- Save and close notebooks before shutting down Jupyter
+
+## Documentation
+See `docs/jupyter_navigation_basics.ipynb` for a step-by-step walkthrough with screenshots.
+
