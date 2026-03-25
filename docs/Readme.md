@@ -201,6 +201,92 @@ Ask:
 
 ---
 
+## Recommended Folder Structure (Reproducible + Collaborative)
+
+Use this structure as your team standard for easy handoffs and automation:
+
+```
+project_root/
+├── README.md
+├── LICENSE
+├── .gitignore
+├── environment.yml
+├── requirements.txt
+├── src/
+│   ├── __init__.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── ingest.py
+│   │   ├── preprocess.py
+│   │   └── features.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── train.py
+│   │   ├── predict.py
+│   │   └── evaluate.py
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   ├── logging.py
+│   │   ├── config.py
+│   │   └── paths.py
+│   └── pipeline.py
+├── notebooks/
+│   ├── 01-exploration.ipynb
+│   ├── 02-feature-engineering.ipynb
+│   ├── 03-modeling.ipynb
+│   └── 99-reporting.ipynb
+├── data/
+│   ├── raw/
+│   │   ├── readme.md
+│   │   └── dataset_v1.csv
+│   ├── interim/
+│   ├── processed/
+│   └── external/
+├── outputs/
+│   ├── artifacts/
+│   ├── visuals/
+│   ├── reports/
+│   └── logs/
+├── tests/
+│   ├── test_data.py
+│   ├── test_models.py
+│   └── test_utils.py
+├── docs/
+│   ├── architecture.md
+│   └── how_to_run.md
+└── scripts/
+    ├── run_data_pipeline.sh
+    ├── run_training.sh
+    └── run_evaluation.sh
+```
+
+### Folder meanings
+
+- `data/raw/`: immutable source-of-truth files (never edit in place)
+- `data/interim/`: temporary staging outputs during pipeline steps
+- `data/processed/`: cleaned, transformed datasets for modeling
+- `data/external/`: third-party or downloaded supplements
+- `notebooks/`: investigation and analysis notes; keep reproducible copies in `src/`
+- `src/`: modular production code and pipeline orchestrator
+- `outputs/`: final artifacts (models, plots, reports, logs)
+- `tests/`: automated checks to prevent regressions
+- `docs/`: architecture docs + runbook
+- `scripts/`: one-command runner scripts for teams
+
+### Why this avoids common issues
+
+- file paths are centralized in `src/utils/paths.py`, so no hardcoded absolute paths
+- raw data is separated and treated read-only, reducing corruption risk
+- internal `data/` stages preserve reproducibility and support re-running a defined pipeline
+- standardized naming prevents collaborator confusion and merge conflicts
+- `outputs/` isolates generated artifacts so code changes cannot overwrite input data
+
+> Pro tip: include a short `docs/how_to_run.md` with commands like:
+> `python -m src.pipeline --stage all`, so new team members have deterministic steps.
+
+
+---
+
 ## How to Contribute
 
 When contributing:
