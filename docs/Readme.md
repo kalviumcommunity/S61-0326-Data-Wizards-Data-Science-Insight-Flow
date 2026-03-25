@@ -251,6 +251,33 @@ Focus on understanding the story behind the work, not just the files.
 
 # Environment Verification Milestone (Python + Conda + Jupyter)
 
+# Jupyter Kernel Control and Debugging Milestone
+
+This milestone teaches you how to safely run, restart, and interrupt Jupyter kernels for reliable, reproducible analysis. Follow these steps to master kernel management:
+
+## 1. Run Cells in Sequence
+- Click each code cell and press Shift+Enter to run it.
+- If you run a cell that uses a variable before the cell that defines it, you’ll get an error.
+- Run cells in the correct order to see the expected output.
+
+## 2. Restart the Kernel
+- Use the Jupyter menu ("Kernel" > "Restart" or the circular arrow icon) to restart the kernel.
+- After restarting, all variables and memory are cleared.
+- Try running a cell that uses a variable before redefining it—you’ll get an error because the variable is gone.
+- Rerun all cells from the top to restore the notebook state.
+
+## 3. Interrupt Execution
+- Run a cell with a long-running operation (like a loop with time.sleep).
+- While it’s running, use the Jupyter menu ("Kernel" > "Interrupt" or the stop icon) to interrupt.
+- Confirm that execution stops and the notebook remains responsive.
+
+## 4. Decide When to Restart vs. Interrupt
+- Use "Interrupt" if a cell is taking too long or is stuck.
+- Use "Restart" if the kernel is unresponsive, or if you want to clear all variables and start fresh.
+- If you see strange errors or unexpected variable values, restart and rerun all cells in order.
+
+Practicing these steps will help you maintain a clean, predictable notebook state and debug issues systematically.
+
 This section documents verification of the local Data Science setup.
 
 ## Verification Date
