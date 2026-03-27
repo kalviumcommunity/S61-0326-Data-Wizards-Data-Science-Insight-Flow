@@ -498,3 +498,18 @@ This milestone ensures you can confidently launch, navigate, and manage Jupyter 
 ## Documentation
 See `docs/jupyter_navigation_basics.ipynb` for a step-by-step walkthrough with screenshots.
 
+## Data Organization
+
+This project uses a disciplined folder structure to separate raw data, processed data, and output artifacts:
+
+- **data/raw/**: Contains original, unmodified data files. Treat as read-only.
+- **data/processed/**: Contains cleaned or transformed datasets derived from raw data.
+- **data/output/**: Contains final results, plots, reports, or models.
+
+**Why?**
+- Prevents accidental overwrites and data contamination
+- Supports reproducibility and auditability
+- Makes it easy to identify data at each stage
+
+See `data/README.md` for more details and best practices.
+
