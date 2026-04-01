@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fffaf6;
+  --foreground: #221c17;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: #ff5a3d;
+  --color-primary-foreground: #ffffff;
+  --color-muted-foreground: #8d776a;
+  --color-card: #3f2f2b;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: #fffaf6;
+  color: var(--foreground);
+  min-height: 100vh;
+}
+
+.bg-grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(120, 99, 86, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 99, 86, 0.05) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at 50% 25%, black, transparent 82%);
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, #ff6b3d 0%, #ff5133 48%, #f43f5e 100%);
+}
+
+.gradient-hero {
+  background: radial-gradient(circle at 22% 10%, #4a2c20 0%, #2f1c15 48%, #1f1410 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #ffae6b 0%, #ff6b3d 45%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glass-card {
+  border: 1px solid rgba(255, 124, 86, 0.25);
+  box-shadow: 0 24px 60px rgba(20, 10, 5, 0.45), 0 8px 20px rgba(255, 91, 61, 0.12);
+}
+
+.metric-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(250, 216, 194, 0.95);
+  background: linear-gradient(135deg, #ffffff 0%, #fffbf7 100%);
+  padding: 1.5rem;
+  box-shadow: 0 12px 24px rgba(77, 42, 25, 0.08), 0 4px 12px rgba(255, 91, 61, 0.05);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, background 220ms ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 24px 48px rgba(255, 91, 61, 0.25), 0 12px 24px rgba(77, 42, 25, 0.15);
+  border-color: rgba(255, 91, 61, 0.5);
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f0 100%);
+}
+
+.surface-panel {
+  border: 1px solid rgba(248, 222, 205, 0.98);
+  background: linear-gradient(135deg, #ffffff 0%, #fffcf9 100%);
+  box-shadow: 0 16px 34px rgba(74, 35, 17, 0.08), 0 4px 12px rgba(255, 91, 61, 0.04);
+  backdrop-filter: blur(12px);
+  transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease, background 220ms ease;
+}
+
+.surface-panel:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(74, 35, 17, 0.15), 0 8px 20px rgba(255, 91, 61, 0.12);
+  border-color: rgba(255, 91, 61, 0.35);
+  background: linear-gradient(135deg, #ffffff 0%, #fff8f5 100%);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-8px) translateX(0);
+  }
+}
+
+.animate-float {
+  animation: float 4.6s ease-in-out infinite;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(255, 91, 61, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 91, 61, 0.5);
+  }
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
