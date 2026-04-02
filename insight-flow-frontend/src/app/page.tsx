@@ -207,9 +207,10 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 className="gradient-primary text-primary-foreground px-8 py-5 text-base font-bold rounded-xl shadow-lg shadow-orange-950/50 hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push(user ? "/dashboard" : "/auth")}
               >
-                View Dashboard <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                {user ? "View Dashboard" : "Sign In to Continue"}
+                <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               <p className="text-sm text-primary-foreground/70 font-medium max-w-[18rem]">
                 Trusted by operations teams across 40+ delivery zones.
