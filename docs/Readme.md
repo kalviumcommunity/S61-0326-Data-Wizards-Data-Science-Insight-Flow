@@ -513,3 +513,23 @@ This project uses a disciplined folder structure to separate raw data, processed
 
 See `data/README.md` for more details and best practices.
 
+---
+
+# DataFrame Inspection Milestone
+
+This milestone teaches you how to inspect a loaded pandas DataFrame before cleaning or analysis. The goal is to build the habit of checking structure, missing values, and numeric summaries early.
+
+## What You Should Do
+- Use `head()` to preview the first few rows and verify the data looks aligned.
+- Use `info()` to inspect column names, data types, non-null counts, and memory usage.
+- Use `describe()` to summarize numeric columns and understand their distributions.
+- Combine all three methods before drawing conclusions from the data.
+
+## Why It Matters
+- `head()` helps you spot obvious layout or sample-value issues quickly.
+- `info()` helps you detect missing values and unexpected data types.
+- `describe()` helps you understand the range, center, and spread of numeric columns.
+
+## Notebook
+See [docs/dataframe_inspection_milestone.ipynb](docs/dataframe_inspection_milestone.ipynb) for the full walkthrough.
+
