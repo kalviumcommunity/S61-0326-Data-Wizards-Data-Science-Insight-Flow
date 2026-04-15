@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback, type ChangeEvent } from "react";
+import { useMemo, useState, useCallback, useEffect, type ChangeEvent } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, Upload, LogOut, User } from "lucide-react";
@@ -26,70 +26,189 @@ import DashboardFilters from "@/components/dashboard/DashboardFilter";
 import OrdersTable from "@/components/dashboard/OrdersTable";
 import SavedReports from "@/components/dashboard/SavedReports";
 
-function parseCsv(text: string): DeliveryOrder[] {
+type CsvParseResult = {
+  rows: DeliveryOrder[];
+  error?: string;
+};
+
+function splitCsvLine(line: string): string[] {
+  const values: string[] = [];
+  let current = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === "," && !inQuotes) {
+      values.push(current.trim());
+      current = "";
+      continue;
+    }
+
+    current += char;
+  }
+
+  values.push(current.trim());
+  return values;
+}
+
+function normalizeHeader(value: string): string {
+  return value.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function parseDateTime(value: string): Date | null {
+  const raw = value.trim();
+  if (!raw) {
+    return null;
+  }
+
+  const direct = new Date(raw);
+  if (!Number.isNaN(direct.getTime())) {
+    return direct;
+  }
+
+  const normalized = raw.includes("T") ? raw : raw.replace(" ", "T");
+  const retry = new Date(normalized);
+  if (!Number.isNaN(retry.getTime())) {
+    return retry;
+  }
+
+  return null;
+}
+
+function parseCsv(text: string): CsvParseResult {
   const lines = text
     .split(/\r?\n/)
-    .map((line) => line.trim())
+    .map((line) => line.trim().replace(/^\uFEFF/, ""))
     .filter(Boolean);
 
   if (lines.length < 2) {
-    return [];
+    return { rows: [], error: "The selected file appears empty or missing data rows." };
   }
 
-  const headers = lines[0].split(",").map((h) => h.trim().toLowerCase());
+  const headers = splitCsvLine(lines[0]).map(normalizeHeader);
 
   const indexOf = (keys: string[]) => headers.findIndex((h) => keys.includes(h));
-  const orderTimeIdx = indexOf(["order time", "ordertime", "order_time"]);
-  const deliveryTimeIdx = indexOf(["delivery time", "deliverytime", "delivery_time"]);
-  const locationIdx = indexOf(["location"]);
-  const zoneIdx = indexOf(["zone"]);
+  const idIdx = indexOf(["orderid", "id"]);
+  const orderTimeIdx = indexOf(["ordertime", "orderts", "ordertimestamp", "orderdate", "orderedat"]);
+  const deliveryTimeIdx = indexOf(["deliverytime", "deliveryts", "deliverytimestamp", "deliverydate", "deliveredat"]);
+  const durationIdx = indexOf([
+    "deliveryduration",
+    "deliveryminutes",
+    "deliverytimeminutes",
+    "duration",
+    "eta",
+    "etaminutes",
+  ]);
+  const locationIdx = indexOf(["location", "city", "area", "address"]);
+  const zoneIdx = indexOf(["zone", "region", "cluster"]);
+  const statusIdx = indexOf(["status", "deliverystatus"]);
 
-  if (orderTimeIdx === -1 || deliveryTimeIdx === -1) {
-    return [];
+  if (orderTimeIdx === -1) {
+    return {
+      rows: [],
+      error: "Missing required time column. Add an order time column like order_time or orderTime.",
+    };
   }
 
-  return lines
+  const rows = lines
     .slice(1)
     .map((line, i) => {
-      const columns = line.split(",").map((c) => c.trim());
+      const columns = splitCsvLine(line);
       const orderTime = columns[orderTimeIdx];
-      const deliveryTime = columns[deliveryTimeIdx];
+      const deliveryTime = deliveryTimeIdx >= 0 ? columns[deliveryTimeIdx] : "";
+      const durationValue = durationIdx >= 0 ? columns[durationIdx] : "";
 
-      if (!orderTime || !deliveryTime) {
+      if (!orderTime) {
         return null;
       }
 
-      const orderDate = new Date(orderTime);
-      const deliveryDate = new Date(deliveryTime);
-
-      if (Number.isNaN(orderDate.getTime()) || Number.isNaN(deliveryDate.getTime())) {
+      const orderDate = parseDateTime(orderTime);
+      if (!orderDate) {
         return null;
       }
 
-      const duration = Math.round((deliveryDate.getTime() - orderDate.getTime()) / 60000);
+      let deliveryDate: Date | null = null;
+      let duration: number | null = null;
+
+      if (deliveryTime) {
+        const parsedDeliveryDate = parseDateTime(deliveryTime);
+        if (parsedDeliveryDate) {
+          deliveryDate = parsedDeliveryDate;
+          duration = Math.round((parsedDeliveryDate.getTime() - orderDate.getTime()) / 60000);
+        }
+      }
+
+      if (duration === null && durationValue) {
+        const parsedDuration = Number(durationValue);
+        if (!Number.isNaN(parsedDuration)) {
+          duration = Math.round(parsedDuration);
+          deliveryDate = new Date(orderDate.getTime() + duration * 60000);
+        }
+      }
+
+      if (duration === null || !deliveryDate) {
+        return null;
+      }
+
+      const safeDuration = duration > 0 ? duration : 30;
+      const statusFromCsv = statusIdx >= 0 ? (columns[statusIdx] || "").toLowerCase() : "";
+      const normalizedStatus = statusFromCsv.includes("delay")
+        ? "delayed"
+        : statusFromCsv.includes("on")
+          ? "on-time"
+          : safeDuration > 35
+            ? "delayed"
+            : "on-time";
 
       return {
-        id: `CSV-${i + 1}`,
+        id: idIdx >= 0 && columns[idIdx] ? String(columns[idIdx]) : `CSV-${i + 1}`,
         orderTime: orderDate.toISOString(),
         deliveryTime: deliveryDate.toISOString(),
         location: locationIdx >= 0 ? columns[locationIdx] || "Unknown" : "Unknown",
         zone: zoneIdx >= 0 ? columns[zoneIdx] || "Zone A" : "Zone A",
-        status: duration > 35 ? "delayed" : "on-time",
-        deliveryDuration: duration > 0 ? duration : 30,
+        status: normalizedStatus,
+        deliveryDuration: safeDuration,
         lat: 28.6 + (Math.random() - 0.5) * 0.15,
         lng: 77.2 + (Math.random() - 0.5) * 0.15,
       } as DeliveryOrder;
     })
     .filter((row): row is DeliveryOrder => row !== null);
+
+  if (rows.length === 0) {
+    return {
+      rows,
+      error:
+        "No valid rows were parsed. Check date/time formats and ensure required columns are present.",
+    };
+  }
+
+  return { rows };
 }
 
 export default function DashboardPage() {
   const { user, signOut } = useAuth();
-  const [orders, setOrders] = useState<DeliveryOrder[]>(mockOrders);
+  const [orders, setOrders] = useState<DeliveryOrder[]>([]);
   const [dateRange, setDateRange] = useState<[string, string]>(["", ""]);
   const [selectedZone, setSelectedZone] = useState("all");
   const [selectedTimeOfDay, setSelectedTimeOfDay] = useState("all");
   const [selectedStatus, setSelectedStatus] = useState("all");
+  const [uploadMessage, setUploadMessage] = useState<string>("");
+  const [uploadMessageIsError, setUploadMessageIsError] = useState(false);
+
+  useEffect(() => {
+    setOrders(mockOrders);
+  }, []);
 
   const filteredOrders = useMemo(() => {
     return orders.filter((o) => {
@@ -121,18 +240,37 @@ export default function DashboardPage() {
       return;
     }
 
+    setUploadMessage("");
+    setUploadMessageIsError(false);
+
     const reader = new FileReader();
     reader.onload = () => {
       const text = typeof reader.result === "string" ? reader.result : "";
       const parsed = parseCsv(text);
-      if (parsed.length > 0) {
-        setOrders(parsed);
+      if (parsed.rows.length > 0) {
+        setOrders(parsed.rows);
+        setDateRange(["", ""]);
+        setSelectedZone("all");
+        setSelectedTimeOfDay("all");
+        setSelectedStatus("all");
+        setUploadMessage(`Uploaded ${parsed.rows.length} rows from ${file.name}.`);
+        setUploadMessageIsError(false);
+      } else {
+        setUploadMessage(parsed.error ?? "CSV upload failed. No valid rows were found.");
+        setUploadMessageIsError(true);
       }
     };
+
+    reader.onerror = () => {
+      setUploadMessage("Unable to read the selected file. Please try again.");
+      setUploadMessageIsError(true);
+    };
+
     reader.readAsText(file);
+    e.target.value = "";
   }, []);
 
-  const zones = useMemo(() => [...new Set(orders.map((o) => o.zone))], [orders]);
+  const zones = useMemo(() => [...new Set(orders.map((o) => o.zone))].sort((a, b) => a.localeCompare(b)), [orders]);
 
   const currentFilters = { dateRange, selectedZone, selectedTimeOfDay, selectedStatus };
 
@@ -144,42 +282,53 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-[#1f1f1f]">
-      <header className="sticky top-0 z-50 border-b border-[#ececec] bg-white">
-        <div className="mx-auto flex max-w-[1180px] items-center justify-between px-4 py-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-b from-[#fafafa] to-white text-[#1f1f1f]">
+      <header className="sticky top-0 z-50 border-b border-[#e5e7eb] bg-white/95 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-[1180px] items-center justify-between px-4 py-6 sm:px-6">
           <div className="flex items-center gap-4">
             <Link href="/">
-              <Button variant="outline" size="sm" className="rounded-xl border-[#e5e7eb] text-[#4b5563]">
+              <Button variant="outline" size="sm" className="rounded-lg border-[#e5e7eb] text-[#4b5563] hover:bg-gray-50">
                 <ArrowLeft className="h-4 w-4" />
               </Button>
             </Link>
             <div>
-              <h1 className="text-[34px] font-bold leading-tight tracking-tight">Delivery Dashboard</h1>
-              <p className="text-sm text-[#9ca3af]">{filteredOrders.length} orders analyzed</p>
+              <h1 className="text-3xl font-bold leading-tight tracking-tight">📊 Delivery Dashboard</h1>
+              <p className="text-sm text-[#6b7280]">{filteredOrders.length} orders • Real-time insights</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <label className="cursor-pointer">
-              <input type="file" accept=".csv" className="hidden" onChange={handleCSVUpload} />
-              <div className="gradient-primary flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white shadow-[0_6px_18px_rgba(244,67,54,0.28)]">
-                <Upload className="h-4 w-4" /> Upload CSV
-              </div>
-            </label>
-
-            <div className="flex items-center gap-2 rounded-xl border border-[#ededed] bg-[#f8f8f8] px-3 py-2 text-sm">
-              <User className="h-4 w-4 text-[#9ca3af]" />
-              <span className="hidden max-w-[140px] truncate text-[#9ca3af] sm:inline">{user?.email ?? "guest@example.com"}</span>
+          <div className="flex items-center gap-4">
+            <div className="flex flex-col gap-2">
+              <label className="cursor-pointer">
+                <input type="file" accept=".csv" className="hidden" onChange={handleCSVUpload} />
+                <div className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#f97316] to-[#ea580c] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95">
+                  <Upload className="h-4 w-4" /> Upload CSV
+                </div>
+              </label>
+              {uploadMessage && (
+                <div className={`rounded-lg px-3 py-2 text-xs font-medium border ${
+                  uploadMessageIsError 
+                    ? "border-red-200 bg-red-50 text-red-700" 
+                    : "border-emerald-200 bg-emerald-50 text-emerald-700"
+                }`}>
+                  {uploadMessageIsError ? "⚠️" : "✅"} {uploadMessage}
+                </div>
+              )}
             </div>
 
-            <Button variant="outline" size="sm" className="rounded-xl border-[#e5e7eb] text-[#6b7280]" onClick={signOut} title="Sign out">
+            <div className="flex items-center gap-2 rounded-lg border border-[#e5e7eb] bg-gradient-to-r from-[#f3f4f6] to-[#f9fafb] px-4 py-2.5 text-sm">
+              <User className="h-4 w-4 text-[#6b7280]" />
+              <span className="hidden max-w-[140px] truncate text-[#6b7280] sm:inline">{user?.email ?? "guest@example.com"}</span>
+            </div>
+
+            <Button variant="outline" size="sm" className="rounded-lg border-[#e5e7eb] text-[#6b7280] hover:bg-gray-50" onClick={signOut} title="Sign out">
               <LogOut className="h-4 w-4" />
             </Button>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1180px] space-y-8 px-4 py-8 sm:px-6">
+      <main className="mx-auto max-w-[1180px] space-y-8 px-4 py-12 sm:px-6">
         <DashboardFilters
           dateRange={dateRange}
           setDateRange={setDateRange}
