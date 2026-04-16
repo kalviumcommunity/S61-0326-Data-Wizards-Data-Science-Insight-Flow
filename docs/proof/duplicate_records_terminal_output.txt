@@ -1,0 +1,130 @@
+﻿================================================================================
+MILESTONE: IDENTIFYING AND REMOVING DUPLICATE RECORDS
+================================================================================
+
+[OBJECTIVE]
+- Understand exact vs partial duplicates
+- Detect duplicate rows
+- Remove duplicates intentionally
+- Verify data quality after cleanup
+
+[WHY THIS MATTERS]
+- Duplicates inflate counts and distort statistics
+- Duplicate records can silently corrupt analysis
+- Clean, unique records improve trust in downstream work
+
+[STEP 1] LOAD BASE DATAFRAME
+--------------------------------------------------------------------------------
+Loaded CSV from: C:\Users\Hi\S61-0326-Data-Wizards-Data-Science-Insight-Flow\data\raw\sample_people.csv
+Base shape: 5 rows x 4 columns
+      Name  Age         City  Salary
+0    Alice   28     New York   72000
+1      Bob   34  Los Angeles   83000
+2  Charlie   22      Chicago   56000
+3    Diana   45      Houston   98000
+4    Ethan   30      Phoenix   67000
+
+[STEP 2] CREATE A DATAFRAME THAT CONTAINS DUPLICATES
+--------------------------------------------------------------------------------
+To demonstrate deduplication clearly, we intentionally add duplicate rows.
+Shape after adding duplicates: 8 rows
+      Name  Age         City  Salary
+0    Alice   28     New York   72000
+1      Bob   34  Los Angeles   83000
+2  Charlie   22      Chicago   56000
+3    Diana   45      Houston   98000
+4    Ethan   30      Phoenix   67000
+5      Bob   34  Los Angeles   83000
+6    Diana   45      Houston   98000
+7    Alice   28       Boston   72000
+
+[STEP 3] DETECT EXACT DUPLICATES ACROSS ALL COLUMNS
+--------------------------------------------------------------------------------
+Boolean duplicate indicator (True means duplicate row):
+0    False
+1    False
+2    False
+3    False
+4    False
+5     True
+6     True
+7    False
+
+Exact duplicate rows found: 2
+
+Duplicate entries (all-column exact matches):
+    Name  Age         City  Salary
+5    Bob   34  Los Angeles   83000
+6  Diana   45      Houston   98000
+
+[STEP 4] DETECT PARTIAL DUPLICATES ON SELECTED COLUMNS
+--------------------------------------------------------------------------------
+Using subset = ['Name', 'Age', 'Salary']
+Rows participating in partial duplicates: 6
+    Name  Age         City  Salary
+0  Alice   28     New York   72000
+1  Alice   28       Boston   72000
+2    Bob   34  Los Angeles   83000
+3    Bob   34  Los Angeles   83000
+4  Diana   45      Houston   98000
+5  Diana   45      Houston   98000
+
+[STEP 5] REMOVE EXACT DUPLICATES SAFELY
+--------------------------------------------------------------------------------
+Before drop_duplicates: 8 rows
+After drop_duplicates:  6 rows
+Rows removed:           2
+
+Result after exact deduplication:
+      Name  Age         City  Salary
+0    Alice   28     New York   72000
+1      Bob   34  Los Angeles   83000
+2  Charlie   22      Chicago   56000
+3    Diana   45      Houston   98000
+4    Ethan   30      Phoenix   67000
+5    Alice   28       Boston   72000
+
+[STEP 6] OPTIONAL: REMOVE DUPLICATES BY SELECTED COLUMNS
+--------------------------------------------------------------------------------
+Applying drop_duplicates(subset=['Name', 'Age', 'Salary'], keep='first')
+Before subset deduplication: 8 rows
+After subset deduplication:  5 rows
+Rows removed:                3
+
+Result after subset-based deduplication:
+      Name  Age         City  Salary
+0    Alice   28     New York   72000
+1      Bob   34  Los Angeles   83000
+2  Charlie   22      Chicago   56000
+3    Diana   45      Houston   98000
+4    Ethan   30      Phoenix   67000
+
+[STEP 7] UNDERSTAND KEEP OPTIONS
+--------------------------------------------------------------------------------
+keep='first': keeps first occurrence
+keep='last':  keeps last occurrence
+keep=False:   marks all duplicate members as True
+Duplicate count with keep='first': 2
+Duplicate count with keep='last':  2
+Duplicate member rows (keep=False): 4
+
+[STEP 8] VERIFY DEDUPLICATION RESULTS
+--------------------------------------------------------------------------------
+Remaining exact duplicates: 0
+Verification passed: no exact duplicate rows remain.
+
+[STEP 9] 2-MINUTE VIDEO WALKTHROUGH GUIDE
+--------------------------------------------------------------------------------
+1) Show duplicate detection with df.duplicated()
+2) Inspect duplicate rows
+3) Run drop_duplicates() and explain keep='first'
+4) Compare shape before vs after cleanup
+5) Recheck duplicates and explain why deduplication matters
+
+[COMPLETION CHECKLIST]
+--------------------------------------------------------------------------------
+[CHECK] Duplicate rows detected
+[CHECK] Duplicate rows inspected
+[CHECK] Exact duplicates removed intentionally
+[CHECK] Shape before and after compared
+[CHECK] Verification completed
