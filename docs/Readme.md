@@ -515,21 +515,37 @@ See `data/README.md` for more details and best practices.
 
 ---
 
-# DataFrame Inspection Milestone
+# Handling Missing Values Milestone
 
-This milestone teaches you how to inspect a loaded pandas DataFrame before cleaning or analysis. The goal is to build the habit of checking structure, missing values, and numeric summaries early.
+This milestone teaches you how to handle missing values in pandas using intentional drop and fill strategies. The goal is not to remove every null automatically, but to choose the least harmful approach for the data you are working with.
 
 ## What You Should Do
-- Use `head()` to preview the first few rows and verify the data looks aligned.
-- Use `info()` to inspect column names, data types, non-null counts, and memory usage.
-- Use `describe()` to summarize numeric columns and understand their distributions.
-- Combine all three methods before drawing conclusions from the data.
+- Inspect missing values first with `isnull()`, `isna()`, or `info()`.
+- Drop rows when only a small number of incomplete records are affected and removal will not distort the dataset.
+- Drop columns when missingness is excessive and the field is not essential.
+- Fill numeric values with simple statistics such as the mean or median when preserving rows matters.
+- Fill categorical values with the mode or a clear constant such as `Unknown` when that choice is easy to explain.
+- Compare the dataset shape before and after each cleaning step.
 
 ## Why It Matters
-- `head()` helps you spot obvious layout or sample-value issues quickly.
-- `info()` helps you detect missing values and unexpected data types.
-- `describe()` helps you understand the range, center, and spread of numeric columns.
+- Dropping values simplifies the dataset but can reduce sample size quickly.
+- Filling values preserves rows but introduces assumptions that may affect distributions.
+- The right strategy depends on the importance of the column and the amount of missing data.
+- Blindly cleaning missing values can hide data quality issues or bias downstream analysis.
+
+## Good Practice
+- Avoid filling categorical data with numeric values.
+- Avoid dropping critical columns without checking their role in the analysis.
+- Always inspect the result after each cleaning step.
+- Document why each choice was made so the cleaning process is explainable.
+
+## Video Walkthrough
+Record a short screen capture that shows:
+- Dropping missing values
+- Filling missing values
+- Comparing dataset shape before and after
+- Explaining why each strategy was chosen
 
 ## Notebook
-See [docs/dataframe_inspection_milestone.ipynb](docs/dataframe_inspection_milestone.ipynb) for the full walkthrough.
+See the relevant notebook in `docs/` for the full walkthrough.
 
