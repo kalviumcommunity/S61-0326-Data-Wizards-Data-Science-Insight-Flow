@@ -16,8 +16,8 @@ const MetricCards = ({ metrics }: MetricCardsProps) => {
             icon: Clock, 
             label: "Avg Delivery Time", 
             value: `${metrics.avgDeliveryTime} min`, 
-            bgGradient: "from-orange-50 to-orange-100",
-            iconBg: "bg-gradient-to-br from-orange-400 to-orange-600"
+            bgGradient: "from-violet-50 to-violet-100",
+            iconBg: "bg-gradient-to-br from-violet-400 to-violet-600"
         },
         { 
             icon: CheckCircle, 

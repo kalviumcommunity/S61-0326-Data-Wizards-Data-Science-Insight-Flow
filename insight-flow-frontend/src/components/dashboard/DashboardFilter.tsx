@@ -55,25 +55,25 @@ const DashboardFilters = ({
             <div className="space-y-1">
                 <label className="flex items-center gap-1 text-xs font-semibold text-[#1f1f1f]">
                     📅 From
-                    {dateRange[0] && <span className="inline-block h-2 w-2 rounded-full bg-[#f97316]"></span>}
+                    {dateRange[0] && <span className="inline-block h-2 w-2 rounded-full bg-violet-500"></span>}
                 </label>
                 <input
                     type="date"
                     value={dateRange[0]}
                     onChange={e => setDateRange([e.target.value, dateRange[1]])}
-                    className="h-11 w-full rounded-lg border border-[#e5e7eb] bg-white px-3 text-sm transition-colors outline-none focus:border-[#f97316] focus:ring-2 focus:ring-[#fed7aa]"
+                    className="h-11 w-full rounded-lg border border-[#e5e7eb] bg-white px-3 text-sm transition-colors outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
                 />
             </div>
             <div className="space-y-1">
                 <label className="flex items-center gap-1 text-xs font-semibold text-[#1f1f1f]">
                     📅 To
-                    {dateRange[1] && <span className="inline-block h-2 w-2 rounded-full bg-[#f97316]"></span>}
+                    {dateRange[1] && <span className="inline-block h-2 w-2 rounded-full bg-violet-500"></span>}
                 </label>
                 <input
                     type="date"
                     value={dateRange[1]}
                     onChange={e => setDateRange([dateRange[0], e.target.value])}
-                    className="h-11 w-full rounded-lg border border-[#e5e7eb] bg-white px-3 text-sm transition-colors outline-none focus:border-[#f97316] focus:ring-2 focus:ring-[#fed7aa]"
+                    className="h-11 w-full rounded-lg border border-[#e5e7eb] bg-white px-3 text-sm transition-colors outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
                 />
             </div>
             <div className="space-y-1">
