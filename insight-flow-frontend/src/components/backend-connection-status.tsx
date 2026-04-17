@@ -9,7 +9,7 @@ import {
 
 const statusStyles = {
   idle: "bg-slate-200 text-slate-700",
-  loading: "bg-amber-100 text-amber-800",
+  loading: "bg-violet-100 text-violet-800",
   connected: "bg-emerald-100 text-emerald-800",
   error: "bg-rose-100 text-rose-800",
 };

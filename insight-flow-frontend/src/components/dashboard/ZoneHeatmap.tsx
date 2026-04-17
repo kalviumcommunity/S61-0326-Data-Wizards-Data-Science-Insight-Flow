@@ -15,14 +15,14 @@ const ZoneHeatmap = ({ data }: Props) => {
     const getColor = (rate: number) => {
         const ratio = rate / maxDelay;
         if (ratio > 0.7) return "bg-red-50 border-red-200";
-        if (ratio > 0.4) return "bg-amber-50 border-amber-200";
+        if (ratio > 0.4) return "bg-indigo-50 border-indigo-200";
         return "bg-emerald-50 border-emerald-200";
     };
 
     const getTextColor = (rate: number) => {
         const ratio = rate / maxDelay;
         if (ratio > 0.7) return "text-red-600";
-        if (ratio > 0.4) return "text-amber-600";
+        if (ratio > 0.4) return "text-indigo-600";
         return "text-emerald-600";
     };
 

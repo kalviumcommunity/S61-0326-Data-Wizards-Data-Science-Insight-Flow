@@ -301,7 +301,7 @@ export default function DashboardPage() {
             <div className="flex flex-col gap-2">
               <label className="cursor-pointer">
                 <input type="file" accept=".csv" className="hidden" onChange={handleCSVUpload} />
-                <div className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#f97316] to-[#ea580c] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95">
+                <div className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-105 active:scale-95">
                   <Upload className="h-4 w-4" /> Upload CSV
                 </div>
               </label>

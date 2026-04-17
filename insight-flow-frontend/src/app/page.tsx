@@ -122,7 +122,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-30 px-4 md:px-6 py-4 backdrop-blur-2xl bg-slate-950/45 border-b border-white/10">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
           <span className="text-primary-foreground font-bold text-xl tracking-wide inline-flex items-center gap-3">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg gradient-primary text-xs font-black text-[#061018] shadow-lg shadow-orange-500/30">
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-400 to-violet-700 text-xs font-black text-[#061018] shadow-lg shadow-violet-500/30">
               IF
             </span>
             Insight Flow
@@ -131,7 +131,7 @@ export default function LandingPage() {
             {user ? (
               <Button
                 size="sm"
-                className="gradient-primary text-primary-foreground rounded-lg border-0 font-semibold shadow-lg px-4"
+                className="bg-gradient-to-r from-violet-500 to-fuchsia-600 text-primary-foreground rounded-lg border-0 font-semibold shadow-lg px-4"
                 onClick={() => router.push("/dashboard")}
               >
                 Dashboard <ArrowRight className="ml-2 h-4 w-4" />
@@ -140,7 +140,7 @@ export default function LandingPage() {
               <Button
                 size="sm"
                 variant="outline"
-                className="border-primary-foreground/35 text-primary-foreground hover:bg-primary-foreground/12 rounded-lg font-semibold px-4"
+                className="border-violet-300/45 bg-violet-500/25 text-primary-foreground hover:bg-violet-500/40 rounded-lg font-semibold px-4"
                 onClick={() => router.push("/auth")}
               >
                 <LogIn className="mr-2 h-4 w-4" /> Sign In
@@ -155,7 +155,7 @@ export default function LandingPage() {
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className="absolute rounded-full gradient-primary"
+              className="absolute rounded-full bg-gradient-to-br from-violet-400 to-fuchsia-600"
               style={{
                 width: `${240 + i * 110}px`,
                 height: `${240 + i * 110}px`,
@@ -174,7 +174,7 @@ export default function LandingPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              <span className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-orange-500/95 to-orange-600/95 text-white mb-5 shadow-lg shadow-orange-500/50 hover:shadow-xl transition-all border border-orange-400/40 backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-violet-500/95 to-fuchsia-600/95 text-white mb-5 shadow-lg shadow-violet-500/50 hover:shadow-xl transition-all border border-violet-300/40 backdrop-blur-sm">
                 <Sparkles className="h-4 w-4" /> Enterprise Delivery Intelligence
               </span>
             </motion.div>
@@ -186,7 +186,7 @@ export default function LandingPage() {
               transition={{ duration: 0.7, delay: 0.15 }}
             >
               <span className="text-primary-foreground block">Smart Food</span>
-              <span className="text-gradient block">Delivery Analytics</span>
+              <span className="block bg-gradient-to-r from-violet-300 via-fuchsia-300 to-violet-500 bg-clip-text text-transparent">Delivery Analytics</span>
             </motion.h1>
 
             <motion.p
@@ -206,7 +206,7 @@ export default function LandingPage() {
             >
               <Button
                 size="lg"
-                className="gradient-primary text-primary-foreground px-8 py-5 text-base font-bold rounded-xl shadow-lg shadow-orange-950/50 hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+                className="bg-gradient-to-r from-violet-500 to-fuchsia-600 text-primary-foreground px-8 py-5 text-base font-bold rounded-xl shadow-lg shadow-violet-950/50 hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
                 onClick={() => router.push(user ? "/dashboard" : "/auth")}
               >
                 {user ? "View Dashboard" : "Sign In to Continue"}
@@ -237,7 +237,7 @@ export default function LandingPage() {
           </div>
 
           <motion.div
-            className="glass-card rounded-3xl p-6 bg-card/60 backdrop-blur-2xl border border-white/12 animate-float w-full max-w-[340px] mx-auto lg:mx-0 lg:justify-self-end lg:mt-10 shadow-lg shadow-orange-950/25"
+            className="glass-card rounded-3xl p-6 bg-card/60 backdrop-blur-2xl border border-white/12 animate-float w-full max-w-[340px] mx-auto lg:mx-0 lg:justify-self-end lg:mt-10 shadow-lg shadow-violet-950/25"
             initial={{ opacity: 0, x: 60, y: 20 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -245,14 +245,14 @@ export default function LandingPage() {
             <div className="space-y-3.5">
               {[
                 { label: "Avg Delivery", value: "28 min", tone: "text-green-400" },
-                { label: "On-Time Rate", value: "91%", tone: "text-orange-300" },
-                { label: "Orders Today", value: "1,247", tone: "text-yellow-300" },
+                { label: "On-Time Rate", value: "91%", tone: "text-violet-300" },
+                { label: "Orders Today", value: "1,247", tone: "text-fuchsia-300" },
               ].map((stat) => (
                 <div
                   key={stat.label}
                   className="flex items-center gap-3.5 rounded-2xl border border-white/12 bg-white/8 px-4 py-3"
                 >
-                  <div className="h-11 w-11 rounded-xl gradient-primary flex items-center justify-center shadow-md shadow-orange-500/30 flex-shrink-0">
+                  <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center shadow-md shadow-violet-500/30 flex-shrink-0">
                     <BarChart3 className="h-4.5 w-4.5 text-primary-foreground" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -301,9 +301,9 @@ export default function LandingPage() {
               {partners.map((partner) => (
                 <span
                   key={partner}
-                  className="inline-flex items-center gap-2 rounded-full border-2 border-orange-200 bg-gradient-to-r from-white to-orange-50 px-5 py-2.5 text-xs font-bold text-slate-700 hover:shadow-lg hover:border-orange-400 hover:scale-110 transition-all duration-300 group"
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-violet-200 bg-gradient-to-r from-white to-violet-50 px-5 py-2.5 text-xs font-bold text-slate-700 hover:shadow-lg hover:border-violet-400 hover:scale-110 transition-all duration-300 group"
                 >
-                  <Building2 className="h-5 w-5 text-orange-500 flex-shrink-0 group-hover:scale-125 transition-transform" />
+                  <Building2 className="h-5 w-5 text-violet-500 flex-shrink-0 group-hover:scale-125 transition-transform" />
                   {partner}
                 </span>
               ))}
@@ -312,7 +312,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-[#fffaf6]">
+      <section className="py-16 px-6 bg-[#f7f2ff]">
         <div className="container mx-auto max-w-7xl">
           <motion.div
             className="text-center mb-14"
@@ -320,7 +320,7 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-slate-900 leading-tight bg-gradient-to-r from-slate-900 to-orange-700 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-slate-900 leading-tight bg-gradient-to-r from-slate-900 to-violet-700 bg-clip-text text-transparent">
               More Than A Dashboard
             </h2>
             <p className="text-slate-600 text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-medium">
@@ -341,10 +341,10 @@ export default function LandingPage() {
                 key={feature.title}
                 className="metric-card group cursor-pointer h-full hover:shadow-2xl transition-all duration-300"
               >
-                <div className="h-16 w-16 rounded-2xl gradient-primary flex items-center justify-center mb-7 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-orange-500/25 group-hover:shadow-orange-500/50">
+                <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center mb-7 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/50">
                   <feature.icon className="h-9 w-9 text-primary-foreground" />
                 </div>
-                <h3 className="text-lg font-bold mb-4 text-slate-900 group-hover:text-orange-600 transition-colors">{feature.title}</h3>
+                <h3 className="text-lg font-bold mb-4 text-slate-900 group-hover:text-violet-600 transition-colors">{feature.title}</h3>
                 <p className="text-slate-600 text-sm leading-7 group-hover:text-slate-700 transition-colors">{feature.desc}</p>
               </motion.div>
             ))}
@@ -352,15 +352,15 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="py-28 px-6 bg-[#fff7f2]">
+      <section className="py-28 px-6 bg-[#f2ecff]">
         <div className="container mx-auto max-w-7xl">
           <motion.div
-            className="rounded-3xl border-2 border-orange-200/80 bg-gradient-to-br from-white to-orange-50 p-12 md:p-16 lg:p-20 shadow-3xl hover:shadow-orange-950/30 transition-shadow group"
+            className="rounded-3xl border-2 border-violet-200/80 bg-gradient-to-br from-white to-violet-50 p-12 md:p-16 lg:p-20 shadow-3xl hover:shadow-violet-950/30 transition-shadow group"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 bg-gradient-to-r from-slate-900 to-orange-700 bg-clip-text text-transparent">
+            <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 bg-gradient-to-r from-slate-900 to-violet-700 bg-clip-text text-transparent">
               How Insight Flow Works
             </h3>
             <p className="text-slate-600 mb-12 text-base font-medium">Three simple steps to operationalize your delivery intelligence.</p>
@@ -368,15 +368,15 @@ export default function LandingPage() {
               {steps.map((step, index) => (
                 <div
                   key={step.title}
-                  className="rounded-2xl border-2 border-orange-100 bg-gradient-to-br from-[#fffbf8] to-[#fff8f5] p-8 md:p-10 hover:shadow-lg hover:border-orange-200 transition-all group duration-300"
+                  className="rounded-2xl border-2 border-violet-100 bg-gradient-to-br from-[#fbf8ff] to-[#f4edff] p-8 md:p-10 hover:shadow-lg hover:border-violet-200 transition-all group duration-300"
                 >
-                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-xl gradient-primary text-primary-foreground font-bold shadow-lg shadow-orange-500/25 group-hover:shadow-orange-500/50 group-hover:scale-110 transition-transform duration-300">
+                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600 text-primary-foreground font-bold shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/50 group-hover:scale-110 transition-transform duration-300">
                     <step.icon className="h-7 w-7" />
                   </span>
-                  <p className="mt-5 text-xs font-bold tracking-[0.28em] text-slate-500 uppercase group-hover:text-orange-600 transition-colors">
+                  <p className="mt-5 text-xs font-bold tracking-[0.28em] text-slate-500 uppercase group-hover:text-violet-600 transition-colors">
                     STEP {index + 1}
                   </p>
-                  <h4 className="mt-3 text-lg font-bold text-slate-900 group-hover:text-orange-700 transition-colors">{step.title}</h4>
+                  <h4 className="mt-3 text-lg font-bold text-slate-900 group-hover:text-violet-700 transition-colors">{step.title}</h4>
                   <p className="mt-4 text-slate-600 text-sm leading-7 group-hover:text-slate-700 transition-colors">{step.desc}</p>
                 </div>
               ))}
@@ -385,7 +385,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="py-28 px-6 bg-[#fffaf6]">
+      <section className="py-28 px-6 bg-[#f7f2ff]">
         <div className="container mx-auto max-w-7xl">
           <motion.div
             className="text-center mb-20"
@@ -393,7 +393,7 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 bg-gradient-to-r from-slate-900 to-orange-700 bg-clip-text text-transparent">
+            <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 bg-gradient-to-r from-slate-900 to-violet-700 bg-clip-text text-transparent">
               What Operations Leaders Say
             </h3>
             <p className="mt-2 text-slate-600 max-w-3xl mx-auto text-base font-medium">
@@ -416,14 +416,14 @@ export default function LandingPage() {
               >
                 <div className="flex items-start gap-3 mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-sm">★</span>
+                    <span key={i} className="text-violet-300 text-sm">★</span>
                   ))}
                 </div>
                 <p className="text-slate-700 leading-8 flex-1 text-base group-hover:text-slate-900 transition-colors italic">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
-                <footer className="mt-8 pt-8 border-t-2 border-slate-200 group-hover:border-orange-200 transition-colors">
-                  <p className="font-bold text-slate-900 text-base group-hover:text-orange-700 transition-colors">{testimonial.name}</p>
+                <footer className="mt-8 pt-8 border-t-2 border-slate-200 group-hover:border-violet-200 transition-colors">
+                  <p className="font-bold text-slate-900 text-base group-hover:text-violet-700 transition-colors">{testimonial.name}</p>
                   <p className="text-sm text-slate-500 mt-1 group-hover:text-slate-600 transition-colors">{testimonial.role}</p>
                 </footer>
               </motion.blockquote>
@@ -435,7 +435,7 @@ export default function LandingPage() {
       <section className="py-24 px-6">
         <div className="container mx-auto max-w-7xl">
           <motion.div
-            className="gradient-hero rounded-3xl p-14 md:p-16 lg:p-20 text-center relative overflow-hidden shadow-2xl shadow-orange-950/45 hover:shadow-orange-950/60 transition-all duration-300 group"
+            className="gradient-hero rounded-3xl p-14 md:p-16 lg:p-20 text-center relative overflow-hidden shadow-2xl shadow-violet-950/45 hover:shadow-violet-950/60 transition-all duration-300 group"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -448,7 +448,7 @@ export default function LandingPage() {
             </p>
             <Button
               size="lg"
-              className="gradient-primary text-primary-foreground px-10 py-7 text-lg font-bold rounded-xl hover:scale-105 transition-all shadow-lg shadow-orange-950/50 hover:shadow-2xl relative z-10"
+              className="bg-gradient-to-r from-violet-500 to-fuchsia-600 text-primary-foreground px-10 py-7 text-lg font-bold rounded-xl hover:scale-105 transition-all shadow-lg shadow-violet-950/50 hover:shadow-2xl relative z-10"
               onClick={() => router.push("/dashboard")}
             >
               Get Started <ArrowRight className="ml-3 h-6 w-6" />

@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
-  --foreground: #1f1f1f;
+  --background: #f7f3ff;
+  --foreground: #241a33;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #ff5a3d;
+  --color-primary: #7c3aed;
   --color-primary-foreground: #ffffff;
-  --color-muted-foreground: #8d776a;
-  --color-card: #3f2f2b;
+  --color-muted-foreground: #766b8f;
+  --color-card: #2d2240;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: #fafafa;
+  background: #f7f3ff;
   color: var(--foreground);
   min-height: 100vh;
 }
@@ -28,22 +28,22 @@ body {
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(120, 99, 86, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(120, 99, 86, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(108, 87, 150, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108, 87, 150, 0.08) 1px, transparent 1px);
   background-size: 42px 42px;
   mask-image: radial-gradient(circle at 50% 25%, black, transparent 82%);
 }
 
 .gradient-primary {
-  background: linear-gradient(135deg, #ff6b2d 0%, #f44336 100%);
+  background: linear-gradient(135deg, #b57bff 0%, #7c3aed 100%);
 }
 
 .gradient-hero {
-  background: radial-gradient(circle at 22% 10%, #4a2c20 0%, #2f1c15 48%, #1f1410 100%);
+  background: radial-gradient(circle at 22% 10%, #3a1f59 0%, #24163a 46%, #150f24 100%);
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, #ffae6b 0%, #ff6b3d 45%, #f43f5e 100%);
+  background: linear-gradient(90deg, #ddd6fe 0%, #c084fc 48%, #8b5cf6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -71,18 +71,18 @@ body {
 }
 
 .surface-panel {
-  border: 1px solid rgba(248, 222, 205, 0.98);
-  background: linear-gradient(135deg, #ffffff 0%, #fffcf9 100%);
-  box-shadow: 0 16px 34px rgba(74, 35, 17, 0.08), 0 4px 12px rgba(255, 91, 61, 0.04);
+  border: 1px solid rgba(219, 208, 244, 0.96);
+  background: linear-gradient(135deg, #ffffff 0%, #f7f2ff 100%);
+  box-shadow: 0 16px 34px rgba(38, 25, 64, 0.12), 0 4px 12px rgba(124, 58, 237, 0.12);
   backdrop-filter: blur(12px);
   transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease, background 220ms ease;
 }
 
 .surface-panel:hover {
   transform: translateY(-6px);
-  box-shadow: 0 24px 48px rgba(74, 35, 17, 0.15), 0 8px 20px rgba(255, 91, 61, 0.12);
-  border-color: rgba(255, 91, 61, 0.35);
-  background: linear-gradient(135deg, #ffffff 0%, #fff8f5 100%);
+  box-shadow: 0 24px 48px rgba(38, 25, 64, 0.2), 0 8px 20px rgba(124, 58, 237, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+  background: linear-gradient(135deg, #ffffff 0%, #efe7ff 100%);
 }
 
 @keyframes float {
@@ -135,10 +135,10 @@ body {
 @keyframes glow {
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(255, 91, 61, 0.3);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.36);
   }
   50% {
-    box-shadow: 0 0 30px rgba(255, 91, 61, 0.5);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.58);
   }
 }
 
